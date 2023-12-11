@@ -36,7 +36,7 @@ class Util {
     return randomChars;
   }
 
-  string_view shuffle(string_view original) {
+  string shuffle(string original) {
     char *chars = new char[original.length() + 1];
     strcpy(chars, string(original).c_str());
     for (int i = 0; i < original.length() - 1; i++) {
@@ -48,23 +48,23 @@ class Util {
     return {chars};
   }
 
-  string_view generateId() {
+  string generateId() {
     int smallLettersAmount = 4;
     int capitalLettersAmount = 2;
     int digitsAmount = 2;
     int specialCharsAmount = 2;
-    string_view allowedSpecialChars = "_+-!";
-    string_view pool = {randomChars(lettersUppercase, capitalLettersAmount)
+    string allowedSpecialChars = "_+-!";
+    string pool = {randomChars(lettersUppercase, capitalLettersAmount)
         + randomChars(lettersLowercase, smallLettersAmount)
         + randomChars(digits, digitsAmount) + randomChars(allowedSpecialChars, specialCharsAmount)};
     return shuffle(pool);
   }
 
-  string_view generateUniqueId(vector<string_view> ids) {
+  string generateUniqueId(vector<string> ids) {
     while (true) {
       bool foundIdentical = false;
-      string_view newId = generateId();
-      for (string_view id : ids) {
+      string newId = generateId();
+      for (string id : ids) {
         if (std::equal(newId.begin(), newId.end(),id.begin(), id.end())) {
           foundIdentical = true;
           break;
