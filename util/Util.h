@@ -1,4 +1,5 @@
 #pragma once
+#include <cstring>
 #include <string_view>
 #include <random>
 

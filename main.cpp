@@ -7,5 +7,6 @@ int main() {
   CRMController crmController = CRMController(terminalView);
 
   MainController mainController = MainController(crmController, terminalView);
+  mainController.menu();
   return 0;
 }

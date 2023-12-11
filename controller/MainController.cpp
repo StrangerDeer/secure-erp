@@ -7,10 +7,10 @@ bool MainController::invokeMenuItem(int selectedMenu) {
       crmController.displayMenu();
       break;
     case 2:
-      salesController.displayMenu();
+      //salesController.displayMenu();
       break;
     case 3:
-      hrController.displayMenu();
+      //hrController.displayMenu();
       break;
     default:
       terminalView.printErrorMessage("Invalid menu item selected!\n");
