@@ -10,9 +10,10 @@
 class Warrior {
  public:
   Warrior(std::string id, std::string& name, std::string& postPigeon) : name(name), postPigeon(postPigeon), battlesLost(0), battlesWon(0), id(id) {}
-  std::string& id;
-  std::string& name;
-  std::string& postPigeon;
+  Warrior(const Warrior& other) : id(other.id), name(other.name), postPigeon(other.postPigeon), battlesWon(other.battlesWon), battlesLost(other.battlesLost) {}
+  std::string id;
+  std::string name;
+  std::string postPigeon;
   int battlesWon;
   int battlesLost;
   std::string toString() {
