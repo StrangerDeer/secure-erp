@@ -18,6 +18,9 @@ set(SOURCE_FILES main.cpp
         DAO/CRMDAO.cpp
         DAO/CRMDAO.h
         util/Util.cpp
-        util/Util.h)
+        util/Util.h
+        model/Warrior.cpp
+        model/Warrior.h
+        model/Warrior.h)
 
 add_executable(secure_erp_cpp ${SOURCE_FILES})

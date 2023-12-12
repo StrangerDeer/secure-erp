@@ -2,7 +2,8 @@
 
 #include <string_view>
 #include "../ui/TerminalView.h"
-
+#include "../model/Warrior.h"
+#include "../DAO/CRMDAO.h"
 using namespace std;
 
 const static string_view CRM_OPTIONS[]{
@@ -16,8 +17,13 @@ const static string_view CRM_OPTIONS[]{
 
 class CRMController {
  public:
-  CRMController(const TerminalView &terminalView) : terminalView(terminalView) {};
+  CRMController(const TerminalView &terminalView, crm::CRMDAO crmdao, Util util) : terminalView(terminalView), crmdao(crmdao), util(util) {
+  };
   void displayMenu() const;
+  std::string createWarrior(std::string& name, std::string& postPigeon);
+  void getWarriors();
  private:
   const TerminalView terminalView;
+  crm::CRMDAO crmdao;
+  Util util;
 };

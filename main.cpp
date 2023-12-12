@@ -4,9 +4,14 @@
 
 int main() {
   TerminalView terminalView = TerminalView();
-  CRMController crmController = CRMController(terminalView);
-
+  crm::CRMDAO crmdao = crm::CRMDAO();
+  Util util;
+  CRMController crmController = CRMController(terminalView, crmdao, util);
+  std::string name = "1";
+  std::string pigeon = "galamb";
   MainController mainController = MainController(crmController, terminalView);
   mainController.menu();
+  crmController.createWarrior(name, pigeon);
+   crmController.getWarriors();
   return 0;
 }
