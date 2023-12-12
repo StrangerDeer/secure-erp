@@ -7,11 +7,11 @@ int main() {
   crm::CRMDAO crmdao = crm::CRMDAO();
   Util util;
   CRMController crmController = CRMController(terminalView, crmdao, util);
-  std::string name = "1";
-  std::string pigeon = "galamb";
+  std::string name = "Fer!%/(enc";
+  std::string pigeon = "Hedvig";
   MainController mainController = MainController(crmController, terminalView);
   mainController.menu();
-  crmController.createWarrior(name, pigeon);
-   crmController.getWarriors();
+  //crmController.createWarrior(name, pigeon);
+  crmController.updateWarriorLose(name);
   return 0;
 }

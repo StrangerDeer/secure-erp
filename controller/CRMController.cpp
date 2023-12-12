@@ -10,6 +10,19 @@ std::string CRMController::createWarrior(std::string &name, std::string &postPig
   crmdao.createWarrior(warrior);
   return "cool";
 }
+
+void CRMController::deleteWarriorByName(std::string &warriorName) {
+    crmdao.deleteWarriorByName(warriorName);
+}
+
 void CRMController::getWarriors() {
   crmdao.getWarriors();
+}
+
+void CRMController::updateWarriorsWin(std::string& warriorName) {
+    crmdao.updateWarriorWin(warriorName);
+}
+
+void CRMController::updateWarriorLose(string &warriorName) {
+    crmdao.updateWarriorLose(warriorName);
 }

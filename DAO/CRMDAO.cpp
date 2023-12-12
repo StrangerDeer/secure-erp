@@ -4,13 +4,15 @@
 
 #include "CRMDAO.h"
 #include <fstream>
+#include <algorithm>
+
 using namespace crm;
 bool CRMDAO::createWarrior(Warrior warrior) {
   vector<string> warriorProps = {warrior.id, warrior.name, warrior.postPigeon, to_string(warrior.battlesWon), to_string(warrior.battlesLost)};
   std::ofstream crmDB(DATA_FILE.data(), ios::app);
   if(crmDB.is_open()) {
     for(int i = 0; i < headers.size(); i++){
-      crmDB << headers[i] << " : " << warriorProps[i] << ";";
+      crmDB << headers[i] << ":" << warriorProps[i] << ";";
     }
     crmDB << std::endl;
     crmDB.close();
@@ -20,16 +22,27 @@ bool CRMDAO::createWarrior(Warrior warrior) {
     return false;
   }
 }
+
 std::vector<Warrior> CRMDAO::getWarriors() {
   std::vector<std::string> result = readWarriors();
   std::vector<Warrior> warriors;
   for(std::string line : result) {
     std::map<std::string,std::string> warriorObj = createWarriorObject(line);
-    Warrior warrior = Warrior(warriorObj.at("Id"), warriorObj.at("Name"), warriorObj.at("PostPigeon"));
+
+    Warrior warrior = Warrior(warriorObj.at("Id"), warriorObj.at("Name"), warriorObj.at("PostPigeon"), stoi(warriorObj.at("BattlesWon")), stoi(warriorObj.at("BattlesLost")));
     warriors.push_back(warrior);
-    std::cout << warrior.toString()<<std::endl;
   }
   return warriors;
+}
+void CRMDAO::deleteWarriorByName(std::string warriorName) {
+    std::vector<Warrior> warriors = getWarriors();
+    for(int i = 0; i <warriors.size(); i ++){
+        Warrior warrior = warriors.at(i);
+        if(warrior.name == warriorName){
+            warriors.erase(warriors.begin() + i);
+            updateCSVFile(warriors);
+        }
+    }
 }
 std::map<std::string, std::string> CRMDAO::createWarriorObject(std::string line) {
   std::vector<std::string> splitLine;
@@ -49,7 +62,7 @@ std::map<std::string, std::string> CRMDAO::createWarriorObject(std::string line)
       if(keyValuePair.at(i) == ':') {
         std::string key;
         std::string value;
-        key = keyValuePair.substr(0, i - 1);
+        key = keyValuePair.substr(0, i);
         value = keyValuePair.substr(i + 1, keyValuePair.size());
         warrior.insert({key, value});
       }
@@ -68,4 +81,35 @@ std::vector<std::string> CRMDAO::readWarriors() {
     crmDB.close();
   }
   return result;
+}
+
+void CRMDAO::updateCSVFile(std::vector<Warrior> warriors) {
+    std::ofstream crmDB(DATA_FILE.data(), std::ios::trunc);
+    crmDB.close();
+
+    for(Warrior warrior : warriors){
+        createWarrior(warrior);
+    }
+}
+
+void CRMDAO::updateWarriorWin(std::string warriorName) {
+    std::vector<Warrior> warriors = getWarriors();
+    for(int i = 0; i <warriors.size(); i ++){
+        Warrior warrior = warriors.at(i);
+        if(warrior.name == warriorName){
+            warriors.at(i).battlesWon += 1;
+            updateCSVFile(warriors);
+        }
+    }
+}
+
+void CRMDAO::updateWarriorLose(std::string warriorName) {
+    std::vector<Warrior> warriors = getWarriors();
+    for(int i = 0; i <warriors.size(); i ++){
+        Warrior warrior = warriors.at(i);
+        if(warrior.name == warriorName){
+            warriors.at(i).battlesLost += 1;
+            updateCSVFile(warriors);
+        }
+    }
 }
