@@ -12,7 +12,7 @@ bool CRMDAO::createWarrior(Warrior warrior) {
   std::ofstream crmDB(DATA_FILE.data(), ios::app);
   if(crmDB.is_open()) {
     for(int i = 0; i < headers.size(); i++){
-      crmDB << headers[i] << " : " << warriorProps[i] << ";";
+      crmDB << headers[i] << ":" << warriorProps[i] << ";";
     }
     crmDB << std::endl;
     crmDB.close();
@@ -30,12 +30,10 @@ std::vector<Warrior> CRMDAO::getWarriors() {
     std::map<std::string,std::string> warriorObj = createWarriorObject(line);
 
     for(auto warrior : warriorObj){
-        std::cout << warrior.first << " : " << warrior.second << std::endl;
     }
 
     Warrior warrior = Warrior(warriorObj.at("Id"), warriorObj.at("Name"), warriorObj.at("PostPigeon"));
     warriors.push_back(warrior);
-    std::cout << warrior.toString()<<std::endl;
   }
   return warriors;
 }
@@ -45,7 +43,6 @@ void CRMDAO::deleteWarrior(std::string warriorName) {
 
     for(int i = 0; i <warriors.size(); i ++){
         Warrior warrior = warriors.at(i);
-
         if(warrior.name == warriorName){
             warriors.erase(warriors.begin() + i);
             updateCSVFile(warriors);
@@ -71,7 +68,7 @@ std::map<std::string, std::string> CRMDAO::createWarriorObject(std::string line)
       if(keyValuePair.at(i) == ':') {
         std::string key;
         std::string value;
-        key = keyValuePair.substr(0, i - 1);
+        key = keyValuePair.substr(0, i);
         value = keyValuePair.substr(i + 1, keyValuePair.size());
         warrior.insert({key, value});
       }
