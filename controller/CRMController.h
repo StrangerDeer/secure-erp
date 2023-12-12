@@ -21,6 +21,7 @@ class CRMController {
   };
   void displayMenu() const;
   std::string createWarrior(std::string& name, std::string& postPigeon);
+  void getWarriors();
  private:
   const TerminalView terminalView;
   crm::CRMDAO crmdao;

@@ -2,6 +2,7 @@
 #include <string_view>
 #include <vector>
 #include <iostream>
+#include <map>
 #include "Warrior.h"
 
 using namespace std;
@@ -18,9 +19,9 @@ static vector<string_view> headers = {"Id", "Name", "PostPigeon", "BattlesWon", 
 class CRMDAO {
  public:
   bool createWarrior(Warrior warrior);
-  void here() {
-    std::cout<< "here"<< std::endl;
-  }
+  std::vector<Warrior> getWarriors();
+ private:
+  std::vector<std::string> readWarriors();
+  std::map<std::string, std::string> createWarriorObject(std::string line);
 };
-
 }

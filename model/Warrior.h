@@ -15,6 +15,9 @@ class Warrior {
   std::string& postPigeon;
   int battlesWon;
   int battlesLost;
+  std::string toString() {
+    return "Id: " + id + " name: " + name + " postPigeon: " + postPigeon + " battles: " + to_string(battlesLost) + "/" + to_string(battlesWon);
+  }
 };
 
 #endif //SECURE_ERP_CPP_MODEL_WARRIOR_H_
