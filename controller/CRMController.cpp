@@ -1,7 +1,7 @@
 #include "CRMController.h"
 
 void CRMController::displayMenu() const {
-  terminalView.printMenu("Customer Relationship", CRM_OPTIONS);
+  terminalView.printMenu("Warrior Stuff", CRM_OPTIONS);
 }
 
 std::string CRMController::createWarrior(std::string &name, std::string &postPigeon) {

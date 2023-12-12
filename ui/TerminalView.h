@@ -25,7 +25,7 @@ class TerminalView {
    * @param title   the title of the menu (first row)
    * @param options array of all available options in menu as Strings
    */
-  void printMenu(string_view title, const string_view options[]) const;
+  void printMenu(string_view title, string_view* options) const;
 
   /**
    * Prints out any type of non-tabular data
