@@ -102,3 +102,14 @@ void CRMDAO::updateWarriorWin(std::string warriorName) {
         }
     }
 }
+
+void CRMDAO::updateWarriorLose(std::string warriorName) {
+    std::vector<Warrior> warriors = getWarriors();
+    for(int i = 0; i <warriors.size(); i ++){
+        Warrior warrior = warriors.at(i);
+        if(warrior.name == warriorName){
+            warriors.at(i).battlesLost += 1;
+            updateCSVFile(warriors);
+        }
+    }
+}

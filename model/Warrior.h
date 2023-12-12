@@ -20,9 +20,6 @@ class Warrior {
   std::string toString() {
     return "Id: " + id + " name: " + name + " postPigeon: " + postPigeon + " battles: " + to_string(battlesLost) + "/" + to_string(battlesWon);
   }
-  void increaseWin(){
-      battlesWon = battlesWon + 1;
-  }
 };
 
 #endif //SECURE_ERP_CPP_MODEL_WARRIOR_H_

@@ -22,3 +22,7 @@ void CRMController::getWarriors() {
 void CRMController::updateWarriorsWin(std::string& warriorName) {
     crmdao.updateWarriorWin(warriorName);
 }
+
+void CRMController::updateWarriorLose(string &warriorName) {
+    crmdao.updateWarriorLose(warriorName);
+}
