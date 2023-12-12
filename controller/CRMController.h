@@ -22,7 +22,7 @@ class CRMController {
   void displayMenu() const;
   std::string createWarrior(std::string& name, std::string& postPigeon);
   void getWarriors();
-  void deleteWarrior(std::string& warriorName);
+  void deleteWarriorByName(std::string& warriorName);
  private:
   const TerminalView terminalView;
   crm::CRMDAO crmdao;

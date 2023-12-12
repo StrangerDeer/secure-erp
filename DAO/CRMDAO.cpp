@@ -28,19 +28,13 @@ std::vector<Warrior> CRMDAO::getWarriors() {
   std::vector<Warrior> warriors;
   for(std::string line : result) {
     std::map<std::string,std::string> warriorObj = createWarriorObject(line);
-
-    for(auto warrior : warriorObj){
-    }
-
     Warrior warrior = Warrior(warriorObj.at("Id"), warriorObj.at("Name"), warriorObj.at("PostPigeon"));
     warriors.push_back(warrior);
   }
   return warriors;
 }
-
-void CRMDAO::deleteWarrior(std::string warriorName) {
+void CRMDAO::deleteWarriorByName(std::string warriorName) {
     std::vector<Warrior> warriors = getWarriors();
-
     for(int i = 0; i <warriors.size(); i ++){
         Warrior warrior = warriors.at(i);
         if(warrior.name == warriorName){
@@ -49,7 +43,6 @@ void CRMDAO::deleteWarrior(std::string warriorName) {
         }
     }
 }
-
 std::map<std::string, std::string> CRMDAO::createWarriorObject(std::string line) {
   std::vector<std::string> splitLine;
   std::map<std::string, std::string> warrior;

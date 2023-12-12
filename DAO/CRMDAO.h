@@ -20,8 +20,7 @@ class CRMDAO {
  public:
   bool createWarrior(Warrior warrior);
   std::vector<Warrior> getWarriors();
-  void deleteWarrior(std::string warriorName);
-
+  void deleteWarriorByName(std::string warriorName);
  private:
   std::vector<std::string> readWarriors();
   std::map<std::string, std::string> createWarriorObject(std::string line);
