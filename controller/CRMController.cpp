@@ -18,3 +18,7 @@ void CRMController::deleteWarriorByName(std::string &warriorName) {
 void CRMController::getWarriors() {
   crmdao.getWarriors();
 }
+
+void CRMController::updateWarriorsWin(std::string& warriorName) {
+    crmdao.updateWarriorWin(warriorName);
+}

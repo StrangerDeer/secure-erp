@@ -23,6 +23,7 @@ class CRMController {
   std::string createWarrior(std::string& name, std::string& postPigeon);
   void getWarriors();
   void deleteWarriorByName(std::string& warriorName);
+  void updateWarriorsWin(std::string& warriorName);
  private:
   const TerminalView terminalView;
   crm::CRMDAO crmdao;
