@@ -13,6 +13,5 @@ int main() {
   mainController.menu();
   crmController.createWarrior(name, pigeon);
   crmController.deleteWarrior(name);
-
   return 0;
 }
