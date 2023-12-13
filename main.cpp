@@ -11,7 +11,5 @@ int main() {
   std::string pigeon = "Hedvig";
   MainController mainController = MainController(crmController, terminalView);
   mainController.menu();
-  //crmController.createWarrior(name, pigeon);
-  crmController.updateWarriorLose(name);
   return 0;
 }

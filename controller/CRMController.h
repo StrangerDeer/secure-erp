@@ -6,27 +6,29 @@
 #include "../DAO/CRMDAO.h"
 using namespace std;
 
-const static string_view CRM_OPTIONS[]{
+static string_view CRM_OPTIONS[]{
     "Back to main menu",
-    "List customers",
-    "Add new customer",
-    "Update customer",
-    "Remove customer",
-    "Subscribed customer emails"
+    "List warriors",
+    "Add new warrior",
+    "Update warrior",
+    "Absolutely murder warrior",
+    "Promising warriors",
+    ""
 };
 
 class CRMController {
  public:
   CRMController(const TerminalView &terminalView, crm::CRMDAO crmdao, Util util) : terminalView(terminalView), crmdao(crmdao), util(util) {
   };
-  void displayMenu() const;
+  void displayMenu();
   std::string createWarrior(std::string& name, std::string& postPigeon);
   void getWarriors();
   void deleteWarriorByName(std::string& warriorName);
+  void addWarrior();
   void updateWarriorsWin(std::string& warriorName);
   void updateWarriorLose(std::string& warriorName);
  private:
-  const TerminalView terminalView;
+  TerminalView terminalView;
   crm::CRMDAO crmdao;
   Util util;
 };
