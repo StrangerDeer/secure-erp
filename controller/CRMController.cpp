@@ -8,6 +8,21 @@ void CRMController::displayMenu() {
       this->getWarriors();
     }
     break;
+    case 2: {
+      this->addWarrior();
+    }
+    break;
+    case 3: {
+      std::cout<< "Still in development"<<std::endl;
+    }
+    break;
+    case 4: {
+      std::cout<<"Still in development"<<std::endl;
+    }
+    break;
+    case 5: {
+      std::cout<<"Still in development"<<std::endl;
+    }
   }
 }
 
@@ -26,4 +41,13 @@ void CRMController::getWarriors() {
   crmdao.printWarriors([this](std::vector<std::map<std::string, std::string>> resultMap, std::string label) {
     terminalView.printGeneralResults(resultMap, label);
   });
+}
+void CRMController::addWarrior() {
+  std::string name;
+  std::string postPigeon;
+  terminalView.printMessage("Enter a name");
+  name = terminalView.getInput();
+  terminalView.printMessage("Enter a pigeon name");
+  postPigeon = terminalView.getInput();
+  createWarrior(name, postPigeon);
 }

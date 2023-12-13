@@ -50,7 +50,11 @@ int TerminalView::getNumberInput(string_view label) const {
   std::cin >> input;
   return input;
 }
-
+std::string TerminalView::getInput() {
+  std::string input;
+  std::cin >> input;
+  return input;
+}
 vector<string_view> TerminalView::getInputs(vector<string_view> labels) {
   return vector<string_view>();
 }
