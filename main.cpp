@@ -19,8 +19,6 @@ int main() {
 
     MainController mainController = MainController(crmController, terminalView);
   mainController.menu();
-  battleController.battle(name1, name2);
-
 
   return 0;
 }

@@ -3,10 +3,10 @@
 #include <vector>
 #include <iostream>
 #include <map>
+#include <functional>
 #include "Warrior.h"
-
+#include "../ui/TerminalView.h"
 using namespace std;
-
 namespace crm {
 const static int ID_TABLE_INDEX{0};
 const static int NAME_TABLE_INDEX{1};
@@ -18,9 +18,11 @@ static vector<string_view> headers = {"Id", "Name", "PostPigeon", "MaxHp", "DMG"
 
 class CRMDAO {
  public:
+  using PrintWarriors = std::function<void(std::vector<std::map<std::string, std::string>>, std::string)>;
   bool createWarrior(Warrior warrior);
   std::vector<Warrior> getWarriors();
   void deleteWarriorByName(std::string warriorName);
+  void printWarriors(PrintWarriors printWarriors);
   void updateWarriorWin(std::string warriorName);
   void updateWarriorLose(std::string warriorName);
  private:

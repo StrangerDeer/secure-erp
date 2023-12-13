@@ -8,15 +8,16 @@ using namespace std;
 
 static string_view MAIN_OPTIONS[]{
     "Exit program",
-    "Customer Relationship Management (CRM)",
+    "Warrior Management",
     "Sales",
-    "Human Resources"
+    "Human Resources",
+    ""
 };
 
 class MainController {
  private:
-  const CRMController crmController;
-  const TerminalView terminalView;
+   CRMController crmController;
+   TerminalView terminalView;
  public:
   MainController(const CRMController &crmController,
                  const TerminalView &terminalView)

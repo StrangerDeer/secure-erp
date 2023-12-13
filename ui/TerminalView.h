@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string_view>
 #include <vector>
-
+#include <map>
 using namespace std;
 
 class TerminalView {
@@ -13,6 +13,7 @@ class TerminalView {
    * @param message information to be printed
    */
   void printMessage(string_view message);
+  std::string getInput();
 
   /**
    * Prints options in standard menu format like this:
@@ -25,7 +26,7 @@ class TerminalView {
    * @param title   the title of the menu (first row)
    * @param options array of all available options in menu as Strings
    */
-  void printMenu(string_view title, const string_view options[]) const;
+  void printMenu(string_view title, string_view* options) const;
 
   /**
    * Prints out any type of non-tabular data
@@ -33,7 +34,7 @@ class TerminalView {
    * @param result String with result to be printed
    * @param label  label String
    */
-  void printGeneralResults(string_view result, string_view label);
+  void printGeneralResults(std::vector<std::map<std::string, std::string>> resultMap, std::string label);
 
   /*
    /--------------------------------\
