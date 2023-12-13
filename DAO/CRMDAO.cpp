@@ -27,7 +27,8 @@ std::vector<Warrior> CRMDAO::getWarriors() {
   std::vector<Warrior> warriors;
   for(std::string line : result) {
     std::map<std::string,std::string> warriorObj = createWarriorObject(line);
-    Warrior warrior = Warrior(warriorObj.at("Id"), warriorObj.at("Name"), warriorObj.at("PostPigeon"));
+
+    Warrior warrior = Warrior(warriorObj.at("Id"), warriorObj.at("Name"), warriorObj.at("PostPigeon"), stoi(warriorObj.at("BattlesWon")), stoi(warriorObj.at("BattlesLost")));
     warriors.push_back(warrior);
   }
   return warriors;
@@ -96,5 +97,27 @@ void CRMDAO::updateCSVFile(std::vector<Warrior> warriors) {
 
     for(Warrior warrior : warriors){
         createWarrior(warrior);
+    }
+}
+
+void CRMDAO::updateWarriorWin(std::string warriorName) {
+    std::vector<Warrior> warriors = getWarriors();
+    for(int i = 0; i <warriors.size(); i ++){
+        Warrior warrior = warriors.at(i);
+        if(warrior.name == warriorName){
+            warriors.at(i).battlesWon += 1;
+            updateCSVFile(warriors);
+        }
+    }
+}
+
+void CRMDAO::updateWarriorLose(std::string warriorName) {
+    std::vector<Warrior> warriors = getWarriors();
+    for(int i = 0; i <warriors.size(); i ++){
+        Warrior warrior = warriors.at(i);
+        if(warrior.name == warriorName){
+            warriors.at(i).battlesLost += 1;
+            updateCSVFile(warriors);
+        }
     }
 }
