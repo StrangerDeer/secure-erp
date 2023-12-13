@@ -26,6 +26,7 @@ class BattleDAO : private crm::CRMDAO{
         void battle(std::string warrior1name, std::string warrior2name);
 private:
     Warrior findWarriorByName(std::string name);
+    void writeBattleEnd(std::string name1, std::string name2, std::string round);
     };
 };
 

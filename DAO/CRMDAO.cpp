@@ -42,8 +42,6 @@ std::vector<Warrior> CRMDAO::getWarriors() {
                               stoi(warriorObj.at("BattlesWon")),
                               stoi(warriorObj.at("BattlesLost")));
     warriors.push_back(warrior);
-
-    std::cout << warrior.name << std::endl;
   }
   return warriors;
 }
@@ -98,7 +96,7 @@ std::vector<std::string> CRMDAO::readWarriors() {
   return result;
 }
 
-void CRMDAO::updateCSVFile(std::vector<Warrior> warriors) {
+void CRMDAO::updateCSVFile(const std::vector<Warrior>& warriors) {
     std::ofstream crmDB(DATA_FILE.data(), std::ios::trunc);
     crmDB.close();
 
@@ -120,11 +118,13 @@ void CRMDAO::updateWarriorWin(std::string warriorName) {
 
 void CRMDAO::updateWarriorLose(std::string warriorName) {
     std::vector<Warrior> warriors = getWarriors();
+
     for(int i = 0; i <warriors.size(); i ++){
         Warrior warrior = warriors.at(i);
         if(warrior.name == warriorName){
             warriors.at(i).battlesLost += 1;
             updateCSVFile(warriors);
+            break;
         }
     }
 }
