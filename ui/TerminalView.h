@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string_view>
 #include <vector>
-
+#include <map>
 using namespace std;
 
 class TerminalView {
@@ -33,7 +33,7 @@ class TerminalView {
    * @param result String with result to be printed
    * @param label  label String
    */
-  void printGeneralResults(string_view result, string_view label);
+  void printGeneralResults(std::vector<std::map<std::string, std::string>> resultMap, std::string label);
 
   /*
    /--------------------------------\
