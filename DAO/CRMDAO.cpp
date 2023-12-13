@@ -27,10 +27,17 @@ std::vector<Warrior> CRMDAO::getWarriors() {
   std::vector<std::string> result = readWarriors();
   std::vector<Warrior> warriors;
   for(std::string line : result) {
+
+      if(line.size() == 0){
+          continue;
+      }
+
     std::map<std::string,std::string> warriorObj = createWarriorObject(line);
 
     Warrior warrior = Warrior(warriorObj.at("Id"), warriorObj.at("Name"), warriorObj.at("PostPigeon"), stoi(warriorObj.at("BattlesWon")), stoi(warriorObj.at("BattlesLost")));
     warriors.push_back(warrior);
+
+    std::cout << warrior.name << std::endl;
   }
   return warriors;
 }
@@ -48,6 +55,7 @@ std::map<std::string, std::string> CRMDAO::createWarriorObject(std::string line)
   std::vector<std::string> splitLine;
   std::map<std::string, std::string> warrior;
   std::string currentValue;
+
   for(int i = 0; i < line.size(); i++) {
     if(line.at(i) == ';') {
       splitLine.push_back(currentValue);

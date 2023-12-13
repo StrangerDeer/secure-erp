@@ -12,6 +12,6 @@ int main() {
   MainController mainController = MainController(crmController, terminalView);
   mainController.menu();
   //crmController.createWarrior(name, pigeon);
-  crmController.updateWarriorLose(name);
+  crmController.getWarriors();
   return 0;
 }
