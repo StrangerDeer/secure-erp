@@ -14,7 +14,8 @@ const static int POST_PIGEON_TABLE_INDEX{2};
 const static int BATTLES_WON_TABLE_INDEX{3};
 const static int BATTLES_LOST_TABLE_INDEX{4};
 constexpr string_view DATA_FILE{"../resource/crm.csv"};
-static vector<string_view> headers = {"Id", "Name", "PostPigeon", "BattlesWon", "BattlesLost"};
+static vector<string_view> headers = {"Id", "Name", "PostPigeon", "MaxHp", "DMG", "BattlesWon", "BattlesLost"};
+
 class CRMDAO {
  public:
   using PrintWarriors = std::function<void(std::vector<std::map<std::string, std::string>>, std::string)>;
@@ -27,6 +28,6 @@ class CRMDAO {
  private:
   std::vector<std::string> readWarriors();
   std::map<std::string, std::string> createWarriorObject(std::string line);
-  void updateCSVFile(std::vector<Warrior> warriors);
+  void updateCSVFile(const std::vector<Warrior>& warriors);
 };
 }

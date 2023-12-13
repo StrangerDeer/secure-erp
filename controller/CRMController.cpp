@@ -26,9 +26,9 @@ void CRMController::displayMenu() {
   }
 }
 
-std::string CRMController::createWarrior(std::string &name, std::string &postPigeon) {
+std::string CRMController::createWarrior(std::string &name, std::string &postPigeon, int hp, int dmg) {
   std::string id = util.generateId();
-  Warrior warrior = Warrior(id, name, postPigeon);
+  Warrior warrior = Warrior(id, name, postPigeon, hp, dmg);
   crmdao.createWarrior(warrior);
   return "cool";
 }
