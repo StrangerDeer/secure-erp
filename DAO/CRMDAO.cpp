@@ -5,7 +5,6 @@
 #include "CRMDAO.h"
 #include <fstream>
 #include <algorithm>
-
 using namespace crm;
 bool CRMDAO::createWarrior(Warrior warrior) {
   vector<string> warriorProps = {warrior.id, warrior.name, warrior.postPigeon, to_string(warrior.battlesWon), to_string(warrior.battlesLost)};
@@ -32,6 +31,15 @@ std::vector<Warrior> CRMDAO::getWarriors() {
     warriors.push_back(warrior);
   }
   return warriors;
+}
+void CRMDAO::printWarriors(PrintWarriors printWarriors) {
+  std::vector<std::string> warriorData = readWarriors();
+  std::vector<std::map<std::string,std::string>> printableWarriors;
+  for(std::string line : warriorData) {
+    std::map<std::string, std::string> warriorObj = createWarriorObject(line);
+    printableWarriors.push_back(warriorObj);
+  }
+  printWarriors(printableWarriors, "Warriors");
 }
 void CRMDAO::deleteWarriorByName(std::string warriorName) {
     std::vector<Warrior> warriors = getWarriors();

@@ -1,7 +1,14 @@
 #include "CRMController.h"
 
-void CRMController::displayMenu() const {
+void CRMController::displayMenu() {
   terminalView.printMenu("Warrior Stuff", CRM_OPTIONS);
+  int menuItemIndex = terminalView.getNumberInput("Please select a menu item!");
+  switch(menuItemIndex) {
+    case 1: {
+      this->getWarriors();
+    }
+    break;
+  }
 }
 
 std::string CRMController::createWarrior(std::string &name, std::string &postPigeon) {
@@ -16,5 +23,7 @@ void CRMController::deleteWarriorByName(std::string &warriorName) {
 }
 
 void CRMController::getWarriors() {
-  crmdao.getWarriors();
+  crmdao.printWarriors([this](std::vector<std::map<std::string, std::string>> resultMap, std::string label) {
+    terminalView.printGeneralResults(resultMap, label);
+  });
 }

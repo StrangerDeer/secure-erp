@@ -20,12 +20,12 @@ class CRMController {
  public:
   CRMController(const TerminalView &terminalView, crm::CRMDAO crmdao, Util util) : terminalView(terminalView), crmdao(crmdao), util(util) {
   };
-  void displayMenu() const;
+  void displayMenu();
   std::string createWarrior(std::string& name, std::string& postPigeon);
   void getWarriors();
   void deleteWarriorByName(std::string& warriorName);
  private:
-  const TerminalView terminalView;
+  TerminalView terminalView;
   crm::CRMDAO crmdao;
   Util util;
 };

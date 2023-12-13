@@ -16,8 +16,8 @@ static string_view MAIN_OPTIONS[]{
 
 class MainController {
  private:
-  const CRMController crmController;
-  const TerminalView terminalView;
+   CRMController crmController;
+   TerminalView terminalView;
  public:
   MainController(const CRMController &crmController,
                  const TerminalView &terminalView)
