@@ -8,7 +8,7 @@
 
 using namespace crm;
 bool CRMDAO::createWarrior(Warrior warrior) {
-  vector<string> warriorProps = {warrior.id, warrior.name, warrior.postPigeon, to_string(warrior.battlesWon), to_string(warrior.battlesLost)};
+  vector<string> warriorProps = {warrior.id, warrior.name, warrior.postPigeon, to_string(warrior.maxHp), to_string(warrior.dmg), to_string(warrior.battlesWon), to_string(warrior.battlesLost)};
   std::ofstream crmDB(DATA_FILE.data(), ios::app);
   if(crmDB.is_open()) {
     for(int i = 0; i < headers.size(); i++){
@@ -34,7 +34,13 @@ std::vector<Warrior> CRMDAO::getWarriors() {
 
     std::map<std::string,std::string> warriorObj = createWarriorObject(line);
 
-    Warrior warrior = Warrior(warriorObj.at("Id"), warriorObj.at("Name"), warriorObj.at("PostPigeon"), stoi(warriorObj.at("BattlesWon")), stoi(warriorObj.at("BattlesLost")));
+    Warrior warrior = Warrior(warriorObj.at("Id"),
+                              warriorObj.at("Name"),
+                              warriorObj.at("PostPigeon"),
+                              stoi(warriorObj.at("MaxHp")),
+                              stoi(warriorObj.at("DMG")),
+                              stoi(warriorObj.at("BattlesWon")),
+                              stoi(warriorObj.at("BattlesLost")));
     warriors.push_back(warrior);
 
     std::cout << warrior.name << std::endl;
@@ -78,6 +84,7 @@ std::map<std::string, std::string> CRMDAO::createWarriorObject(std::string line)
   }
   return warrior;
 }
+
 std::vector<std::string> CRMDAO::readWarriors() {
   std::vector<std::string> result;
   std::string line;

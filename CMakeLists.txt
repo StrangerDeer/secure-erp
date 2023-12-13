@@ -21,6 +21,10 @@ set(SOURCE_FILES main.cpp
         util/Util.h
         model/Warrior.cpp
         model/Warrior.h
-        model/Warrior.h)
+        model/Warrior.h
+        controller/BattleController.cpp
+        controller/BattleController.h
+        DAO/BattleDAO.cpp
+        DAO/BattleDAO.h)
 
 add_executable(secure_erp_cpp ${SOURCE_FILES})

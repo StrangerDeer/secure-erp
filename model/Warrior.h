@@ -9,16 +9,24 @@
 #include "../util/Util.h"
 class Warrior {
  public:
-  Warrior(std::string id, std::string& name, std::string& postPigeon) : name(name), postPigeon(postPigeon), battlesLost(0), battlesWon(0), id(id) {}
-  Warrior(std::string id, std::string& name, std::string& postPigeon, int win, int lose) : name(name), postPigeon(postPigeon), battlesLost(lose), battlesWon(win), id(id) {}
-  Warrior(const Warrior& other) : id(other.id), name(other.name), postPigeon(other.postPigeon), battlesWon(other.battlesWon), battlesLost(other.battlesLost) {}
+  Warrior(std::string id, std::string& name, std::string& postPigeon, int hp, int damage) :
+    name(name), postPigeon(postPigeon), maxHp(hp), dmg(damage), battlesLost(0), battlesWon(0), id(id) {}
+
+  Warrior(std::string id, std::string& name, std::string& postPigeon, int hp, int dmg, int win, int lose) :
+    name(name), postPigeon(postPigeon), maxHp(hp), dmg(dmg), battlesLost(lose), battlesWon(win), id(id) {}
+
   std::string id;
   std::string name;
   std::string postPigeon;
+  int maxHp;
+  int dmg;
   int battlesWon;
   int battlesLost;
   std::string toString() {
     return "Id: " + id + " name: " + name + " postPigeon: " + postPigeon + " battles: " + to_string(battlesLost) + "/" + to_string(battlesWon);
+  }
+  void fight(Warrior& enemy){
+      enemy.maxHp = enemy.maxHp - dmg;
   }
 };
 
