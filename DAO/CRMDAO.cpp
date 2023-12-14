@@ -15,7 +15,9 @@ bool CRMDAO::createWarrior(Warrior warrior) {
                                  to_string(warrior.currentHP),
                                  to_string(warrior.dmg),
                                  to_string(warrior.battlesWon),
-                                 to_string(warrior.battlesLost)};
+                                 to_string(warrior.battlesLost),
+                                 to_string(warrior.exp),
+                                 to_string(warrior.level)};
 
   std::ofstream crmDB(DATA_FILE.data(), ios::app);
   if(crmDB.is_open()) {
@@ -49,7 +51,9 @@ std::vector<Warrior> CRMDAO::getWarriors() {
                               stoi(warriorObj.at("CurrentHp")),
                               stoi(warriorObj.at("DMG")),
                               stoi(warriorObj.at("BattlesWon")),
-                              stoi(warriorObj.at("BattlesLost")));
+                              stoi(warriorObj.at("BattlesLost")),
+                              stoi(warriorObj.at("Exp")),
+                              stoi(warriorObj.at("Level")));
     warriors.push_back(warrior);
   }
   return warriors;
@@ -203,6 +207,43 @@ void CRMDAO::makeWarriorHpMax(const Warrior &warrior) {
     }
   }
 }
+void CRMDAO::increaseWarriorXp(const Warrior &warrior) {
+  std::vector<Warrior> warriors = getWarriors();
+
+  for(int i = 0; i <warriors.size(); i ++){
+    Warrior currentWarrior = warriors.at(i);
+
+    if(currentWarrior.name == warrior.name){
+      warriors.at(i).exp += winXp;
+
+      if(warriors.at(i).exp >= needLevelUpXp){
+        increaseWarriorLevel(warriors.at(i));
+        break;
+      }
+
+      updateCSVFile(warriors);
+      break;
+    }
+
+  }
+}
+void CRMDAO::increaseWarriorLevel(const Warrior &warrior) {
+  std::vector<Warrior> warriors = getWarriors();
+
+  for(int i = 0; i <warriors.size(); i ++){
+    Warrior currentWarrior = warriors.at(i);
+
+    if(currentWarrior.name == warrior.name){
+      warriors.at(i).exp = 0;
+      warriors.at(i).level += 1;
+      warriors.at(i).maxHp += levelUpHp;
+      warriors.at(i).dmg += levelUpDmg;
+      updateCSVFile(warriors);
+      break;
+    }
+
+  }
+}
 std::string getInjuryName(int healedAmount) {
   std::srand(static_cast<unsigned int>(std::time(nullptr)));
   static std::vector<std::string> lightInjuryNames{"hurty hurty toenail", "ouchy finger"};
@@ -258,4 +299,3 @@ void CRMDAO::printMedicalHistory(PrintWarriors printWarriors) {
   }
   printWarriors(history, "Medical records");
 }
-

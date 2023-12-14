@@ -13,6 +13,5 @@ int main() {
   MedicalController medicalController(terminalView, battle::BattleDAO(), crmdao);
   MainController mainController = MainController(medicalController, crmController, battleController, terminalView);
   mainController.menu();
-
   return 0;
 }
