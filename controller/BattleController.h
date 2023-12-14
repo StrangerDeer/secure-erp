@@ -9,15 +9,20 @@
 #include "TerminalView.h"
 #include "Util.h"
 #include "../DAO/BattleDAO.h"
-
+static string_view BATTLE_OPTIONS[]{
+    "Back to main menu",
+    "Battle",
+    ""
+};
 class BattleController {
 public:
     BattleController(const TerminalView &terminalView, battle::BattleDAO battleDao, Util util) : terminalView(terminalView), battleDao(battleDao), util(util) {
     };
-    void displayMenu() const;
-    void battle(std::string warrior1name, std::string warrior2name);
+    void displayMenu();
+    void battle(std::string warrior1name, std::string warrior2name) ;
 private:
     const TerminalView terminalView;
+    void setupBattle();
     battle::BattleDAO battleDao;
     Util util;
 };

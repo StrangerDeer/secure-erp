@@ -12,8 +12,8 @@ class TerminalView {
    *
    * @param message information to be printed
    */
-  void printMessage(string_view message);
-  std::string getInput();
+  void printMessage(string_view message) const;
+  std::string getInput()const;
 
   /**
    * Prints options in standard menu format like this:

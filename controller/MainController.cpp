@@ -7,7 +7,7 @@ bool MainController::invokeMenuItem(int selectedMenu) {
       crmController.displayMenu();
       break;
     case 2:
-      //salesController.displayMenu();
+      battleController.displayMenu();
       break;
     case 3:
       //hrController.displayMenu();

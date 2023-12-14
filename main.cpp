@@ -10,14 +10,7 @@ int main() {
 
   CRMController crmController = CRMController(terminalView, crmdao, util);
   BattleController battleController(terminalView, battle::BattleDAO(), util);
-
-  std::string name1 = "Ferenc";
-  std::string pigeon1 = "Hedvig";
-  std::string name2 = "Jozsi";
-  std::string pigeon2 = "Hedvig";
-
-
-    MainController mainController = MainController(crmController, terminalView);
+  MainController mainController = MainController(crmController, battleController, terminalView);
   mainController.menu();
 
   return 0;

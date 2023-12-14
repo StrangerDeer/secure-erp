@@ -45,11 +45,15 @@ void CRMController::getWarriors() {
 void CRMController::addWarrior() {
   std::string name;
   std::string postPigeon;
+  int hp;
+  int dmg;
   terminalView.printMessage("Enter a name");
   name = terminalView.getInput();
   terminalView.printMessage("Enter a pigeon name");
   postPigeon = terminalView.getInput();
-  createWarrior(name, postPigeon);
+  hp = terminalView.getNumberInput("Enter hp");
+  dmg = terminalView.getNumberInput("Enter dmg");
+  createWarrior(name, postPigeon, hp, dmg);
 }
 void CRMController::updateWarriorsWin(std::string& warriorName) {
     crmdao.updateWarriorWin(warriorName);

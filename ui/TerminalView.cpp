@@ -1,7 +1,7 @@
 #include <map>
 #include "TerminalView.h"
 
-void TerminalView::printMessage(string_view message) {
+void TerminalView::printMessage(string_view message) const {
   std::cout<<message<<std::endl;
 }
 
@@ -50,7 +50,7 @@ int TerminalView::getNumberInput(string_view label) const {
   std::cin >> input;
   return input;
 }
-std::string TerminalView::getInput() {
+std::string TerminalView::getInput()const {
   std::string input;
   std::cin >> input;
   return input;
