@@ -13,15 +13,15 @@ void CRMController::displayMenu() {
     }
     break;
     case 3: {
-      std::cout<< "Still in development"<<std::endl;
+      this->updateWarrior();
     }
     break;
     case 4: {
-      std::cout<<"Still in development"<<std::endl;
+      this->deleteWarrior();
     }
     break;
     case 5: {
-      std::cout<<"Still in development"<<std::endl;
+      this->listTopWarriors();
     }
   }
 }
@@ -56,3 +56,26 @@ void CRMController::addWarrior() {
   createWarrior(name, postPigeon, hp, dmg);
 }
 
+
+void CRMController::updateWarriorLose(string &warriorName) {
+    crmdao.updateWarriorLose(warriorName);
+}
+
+void CRMController::deleteWarrior() {
+  std::string name;
+  terminalView.printMessage("Whomst thy wish to kill?");
+  name = terminalView.getInput();
+  crmdao.deleteWarriorByName(name);
+}
+
+void CRMController::updateWarrior() {
+  //TODO
+}
+
+void CRMController::listTopWarriors() {
+  int displayedWarriorCount = 0;
+  displayedWarriorCount = terminalView.getNumberInput("How many would you like to see?");
+  crmdao.listTopWarriors([this](std::vector<std::map<std::string, std::string>> resultMap, std::string label) {
+    terminalView.printGeneralResults(resultMap, label);
+  }, displayedWarriorCount);
+}

@@ -4,7 +4,6 @@
 void TerminalView::printMessage(string_view message) const {
   std::cout<<message<<std::endl;
 }
-
 void TerminalView::printMenu(string_view title, string_view* options) const {
   std::cout<<title<<std::endl;
   for(int i = 0; options[i].length(); i++) {

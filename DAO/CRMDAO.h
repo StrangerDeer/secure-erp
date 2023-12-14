@@ -19,6 +19,7 @@ const int BATTLES_LOST_HEADER_INDEX(7);
 const int EXP_HEADER_INDEX(8);
 const int LEVEL_HEADER_INDEX(9);
 constexpr string_view DATA_FILE{"../resource/crm.csv"};
+constexpr string_view MED_FILE{"../resource/medcenter.csv"};
 static vector<string> headers = {"Id", "Name", "PostPigeon", "MaxHp", "CurrentHp" ,"DMG", "BattlesWon", "BattlesLost", "Exp", "Level"};
 
 class CRMDAO {
@@ -28,6 +29,8 @@ class CRMDAO {
   std::vector<Warrior> getWarriors();
   void deleteWarriorByName(const std::string& warriorName);
   void printWarriors(PrintWarriors printWarriors);
+  void listTopWarriors(PrintWarriors printWarriors, int count);
+  void printMedicalHistory(PrintWarriors printWarriors);
 
  protected:
   void updateWarriorWin(const Warrior& warrior);
@@ -50,5 +53,7 @@ class CRMDAO {
   int findWarriorIndexByName(std::vector<Warrior> warriors, const std::string& name);
   void increaseWarriorLevelWithIndex(std::vector<Warrior> warriors, int index);
   void updateCSVFile(const std::vector<Warrior>& warriors);
+  void updateMedRecord(Warrior warrior, int healedAmount);
+  std::vector<std::string> readMedHistory();
 };
 }

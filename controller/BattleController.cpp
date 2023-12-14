@@ -4,15 +4,19 @@
 
 #include "BattleController.h"
 
-void BattleController::displayMenu()  {
+void BattleController::displayMenu() {
   terminalView.printMenu("Battle stuff", BATTLE_OPTIONS);
   int menuItemIndex = terminalView.getNumberInput("Please select a menu item!");
   switch(menuItemIndex) {
+    case 0: {
+      return;
+    }
+    break;
     case 1: {
       this->setupBattle();
     }
       break;
-    case 3: {
+    case 2: {
       std::cout<< "Still in development"<<std::endl;
     }
       break;
