@@ -56,11 +56,6 @@ void CRMController::addWarrior() {
   createWarrior(name, postPigeon, hp, dmg);
 }
 
-
-void CRMController::updateWarriorLose(string &warriorName) {
-    crmdao.updateWarriorLose(warriorName);
-}
-
 void CRMController::deleteWarrior() {
   std::string name;
   terminalView.printMessage("Whomst thy wish to kill?");

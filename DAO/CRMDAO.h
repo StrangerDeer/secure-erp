@@ -54,6 +54,9 @@ class CRMDAO {
   void increaseWarriorLevelWithIndex(std::vector<Warrior> warriors, int index);
   void updateCSVFile(const std::vector<Warrior>& warriors);
   void updateMedRecord(Warrior warrior, int healedAmount);
+  void orderByWinRatio(std::vector<std::map<std::string, std::string>>& warriors);
+  bool compareWinRatio(const std::map<std::string, std::string> &warrior1,
+                       const std::map<std::string, std::string> &warrior2);
   std::vector<std::string> readMedHistory();
 };
 }
