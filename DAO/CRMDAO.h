@@ -14,7 +14,7 @@ const static int POST_PIGEON_TABLE_INDEX{2};
 const static int BATTLES_WON_TABLE_INDEX{3};
 const static int BATTLES_LOST_TABLE_INDEX{4};
 constexpr string_view DATA_FILE{"../resource/crm.csv"};
-static vector<string_view> headers = {"Id", "Name", "PostPigeon", "MaxHp", "CurrentHp" ,"DMG", "BattlesWon", "BattlesLost"};
+static vector<string_view> headers = {"Id", "Name", "PostPigeon", "MaxHp", "CurrentHp" ,"DMG", "BattlesWon", "BattlesLost", "Exp", "Level"};
 
 class CRMDAO {
  public:
@@ -29,8 +29,14 @@ class CRMDAO {
  protected:
   void decreaseWarriorHp(const Warrior& warrior);
   void makeWarriorHpMax(const Warrior& warrior);
+  void increaseWarriorXp(const Warrior& warrior);
+  void increaseWarriorLevel(const Warrior& warrior);
 
  private:
+  int winXp{20};
+  int needLevelUpXp{100};
+  int levelUpDmg{5};
+  int levelUpHp{10};
   std::vector<std::string> readWarriors();
   std::map<std::string, std::string> createWarriorObject(std::string line);
   void updateCSVFile(const std::vector<Warrior>& warriors);

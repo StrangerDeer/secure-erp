@@ -28,12 +28,14 @@ void battle::BattleDAO::battle(std::string warrior1name, std::string warrior2nam
     if(warrior1.currentHP > 0){
         updateWarriorWin(warrior1.name);
         updateWarriorLose(warrior2.name);
+        increaseWarriorXp(warrior1);
         writeBattleEnd(warrior1.name, warrior2.name, to_string(round));
         cout << "WIN: " << warrior1.name << endl;
         cout << "Lose: " << warrior2.name << endl;
     }else{
         updateWarriorWin(warrior2.name);
         updateWarriorLose(warrior1.name);
+        increaseWarriorXp(warrior2);
         writeBattleEnd(warrior2.name, warrior1.name, to_string(round - 1));
         cout << "WIN: " << warrior2.name << endl;
         cout << "Lose: " << warrior1.name << endl;

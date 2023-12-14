@@ -23,7 +23,7 @@ int main() {
   //crmController.createWarrior(name1, pigeon1, 20, 5);
   //crmController.createWarrior(name2, pigeon2, 30, 7);
 
-  battleController.battle(name1, name2);
+  //battleController.battle(name1, name2);
   //battleController.cure(name1);
 
   return 0;
