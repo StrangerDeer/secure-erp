@@ -19,7 +19,9 @@ const int BATTLES_LOST_HEADER_INDEX(7);
 const int EXP_HEADER_INDEX(8);
 const int LEVEL_HEADER_INDEX(9);
 constexpr string_view DATA_FILE{"../resource/crm.csv"};
-static vector<string> headers = {"Id", "Name", "PostPigeon", "MaxHp", "CurrentHp" ,"DMG", "BattlesWon", "BattlesLost", "Exp", "Level"};
+
+static vector<string_view> headers = {"Id", "Name", "PostPigeon", "MaxHp", "CurrentHp" ,"DMG", "BattlesWon", "BattlesLost", "Exp", "Level"};
+constexpr string_view MED_FILE{"../resource/medcenter.csv"};
 
 class CRMDAO {
  public:
@@ -29,12 +31,21 @@ class CRMDAO {
   void deleteWarriorByName(const std::string& warriorName);
   void printWarriors(PrintWarriors printWarriors);
 
+  void updateWarriorWin(std::string warriorName);
+  void updateWarriorLose(std::string warriorName);
+  void listTopWarriors(PrintWarriors printWarriors, int count);
+  void printMedicalHistory(PrintWarriors printWarriors);
+
  protected:
   void updateWarriorWin(const Warrior& warrior);
   void updateWarriorLose(const Warrior& warrior);
   void decreaseWarriorHp(const Warrior& warrior);
   void makeWarriorHpMax(const Warrior& warrior);
   void increaseWarriorXp(const Warrior& warrior);
+
+  void increaseWarriorLevel(const Warrior& warrior);
+  void orderByWinRatio(std::vector<std::map<std::string, std::string>>& wariors);
+  bool compareWinRatio(const std::map<std::string, std::string>& warrior1, const std::map<std::string, std::string>& warrior2);
 
  private:
   const char valueSeparator = ';';
@@ -50,5 +61,7 @@ class CRMDAO {
   int findWarriorIndexByName(std::vector<Warrior> warriors, const std::string& name);
   void increaseWarriorLevelWithIndex(std::vector<Warrior> warriors, int index);
   void updateCSVFile(const std::vector<Warrior>& warriors);
+  void updateMedRecord(Warrior warrior, int healedAmount);
+  std::vector<std::string> readMedHistory();
 };
 }
