@@ -29,7 +29,9 @@ void MedicalController::displayMenu() {
   }
 }
 void MedicalController::showMedicalHistory() {
-
+  crmDao.printMedicalHistory([this](std::vector<std::map<std::string, std::string>> resultMap, std::string label) {
+    terminalView.printGeneralResults(resultMap, label);
+  });
 }
 void MedicalController::healWarrior() {
   std::string name;

@@ -14,6 +14,7 @@ const static int POST_PIGEON_TABLE_INDEX{2};
 const static int BATTLES_WON_TABLE_INDEX{3};
 const static int BATTLES_LOST_TABLE_INDEX{4};
 constexpr string_view DATA_FILE{"../resource/crm.csv"};
+constexpr string_view MED_FILE{"../resource/medcenter.csv"};
 static vector<string_view> headers = {"Id", "Name", "PostPigeon", "MaxHp", "CurrentHp" ,"DMG", "BattlesWon", "BattlesLost"};
 
 class CRMDAO {
@@ -26,6 +27,7 @@ class CRMDAO {
   void updateWarriorWin(std::string warriorName);
   void updateWarriorLose(std::string warriorName);
   void listTopWarriors(PrintWarriors printWarriors, int count);
+  void printMedicalHistory(PrintWarriors printWarriors);
  protected:
   void decreaseWarriorHp(const Warrior& warrior);
   void makeWarriorHpMax(const Warrior& warrior);
@@ -36,5 +38,6 @@ class CRMDAO {
   std::map<std::string, std::string> createWarriorObject(std::string line);
   void updateCSVFile(const std::vector<Warrior>& warriors);
   void updateMedRecord(Warrior warrior, int healedAmount);
+  std::vector<std::string> readMedHistory();
 };
 }

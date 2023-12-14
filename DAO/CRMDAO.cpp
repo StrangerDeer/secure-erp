@@ -211,13 +211,51 @@ std::string getInjuryName(int healedAmount) {
                                               "how is this guy even alive lmao"};
   static std::vector<std::vector<std::string>> injuries {lightInjuryNames, injuryNames, severeInjuryNames};
   int severityLevel = healedAmount <= 3 ? 0 : healedAmount <= 5 ? 1 : 2;
-  return injuries.at(severityLevel).at(std::rand() % injuries[severityLevel].size());
+  return injuries.at(severityLevel).at(std::rand() % injuries.at(severityLevel).size());
 }
 void CRMDAO::updateMedRecord(Warrior warrior, int healedAmount) {
   if(healedAmount < 0)return;
-  std::ofstream crmDB("../resource/medcenter.csv", ios::app);
+  std::ofstream crmDB(MED_FILE.data(), ios::app);
   if(crmDB.is_open()) {
-    crmDB<< warrior.name << ";" << getInjuryName(healedAmount) << " healed for: " << to_string(healedAmount) << ";" << std::endl;
+    crmDB<< warrior.name << ";" << getInjuryName(healedAmount)
+    << " healed for: " << to_string(healedAmount) << ";" << std::endl;
     crmDB.close();
   }
 }
+std::vector<std::string> CRMDAO::readMedHistory() {
+  std::vector<std::string> result;
+  std::string line;
+  ifstream crmDB (MED_FILE.data());
+  if(crmDB.is_open()) {
+    while(getline(crmDB, line)) {
+      result.push_back(line);
+    }
+    crmDB.close();
+  }
+  return result;
+}
+void CRMDAO::printMedicalHistory(PrintWarriors printWarriors) {
+  std::vector<std::string> historyData = readMedHistory();
+  std::vector<std::map<std::string, std::string>> history;
+  std::string key1 = "name";
+  std::string key2 = "treatment";
+  int slicePos = 0;
+  for(std::string line : historyData) {
+    std::map<std::string, std::string> record;
+    for(int i = 0, remainingKeys = 2; i < line.size(); i++) {
+      if(line.at(i) == ';') {
+        if(remainingKeys == 2) {
+          record.insert({key1, line.substr(0, i)});
+          slicePos = i + 1;
+          remainingKeys = 1;
+        }
+        else {
+          record.insert({key2, line.substr(slicePos, i)});
+        }
+      }
+    }
+    history.push_back(record);
+  }
+  printWarriors(history, "Medical records");
+}
+
