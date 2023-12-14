@@ -10,19 +10,22 @@ void battle::BattleDAO::battle(std::string warrior1name, std::string warrior2nam
     Warrior warrior2 = findWarriorByName(warrior2name);
     int round = 1;
 
-    while(warrior1.maxHp > 0 && warrior2.maxHp > 0){
+    while(warrior1.currentHP > 0 && warrior2.currentHP > 0){
         std::cout << "ROUND: " << to_string(round) << endl;
         warrior1.fight(warrior2);
         std::cout << warrior1.name << " hits " << warrior2.name << endl;
 
-        if(warrior2.maxHp > 0){
+        if(warrior2.currentHP > 0){
             warrior2.fight(warrior1);
             std::cout << warrior2.name << " hits " << warrior1.name << endl;
         }
         round++;
     }
 
-    if(warrior1.maxHp > 0){
+    decreaseWarriorHp(warrior1);
+    decreaseWarriorHp(warrior2);
+
+    if(warrior1.currentHP > 0){
         updateWarriorWin(warrior1.name);
         updateWarriorLose(warrior2.name);
         writeBattleEnd(warrior1.name, warrior2.name, to_string(round));
@@ -37,7 +40,7 @@ void battle::BattleDAO::battle(std::string warrior1name, std::string warrior2nam
     }
 }
 
-Warrior battle::BattleDAO::findWarriorByName(std::string name) {
+Warrior battle::BattleDAO::findWarriorByName(const std::string& name) {
     for(const auto& warrior : getWarriors()){
         if(warrior.name == name){
             return warrior;
@@ -54,4 +57,9 @@ void battle::BattleDAO::writeBattleEnd(std::string name1, std::string name2, std
         file << std::endl;
     }
         file.close();
+}
+
+void battle::BattleDAO::cure(std::string name) {
+  Warrior warrior = findWarriorByName(name);
+  makeWarriorHpMax(warrior);
 }

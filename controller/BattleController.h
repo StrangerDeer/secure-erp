@@ -19,7 +19,8 @@ public:
     BattleController(const TerminalView &terminalView, battle::BattleDAO battleDao, Util util) : terminalView(terminalView), battleDao(battleDao), util(util) {
     };
     void displayMenu();
-    void battle(std::string warrior1name, std::string warrior2name) ;
+    void battle(std::string warrior1name, std::string warrior2name);
+    void cure(std::string name);
 private:
     const TerminalView terminalView;
     void setupBattle();
