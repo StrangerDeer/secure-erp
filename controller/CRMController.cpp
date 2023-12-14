@@ -56,19 +56,17 @@ void CRMController::addWarrior() {
   createWarrior(name, postPigeon, hp, dmg);
 }
 
-
-void CRMController::updateWarriorLose(string &warriorName) {
-    crmdao.updateWarriorLose(warriorName);
-}
 void CRMController::deleteWarrior() {
   std::string name;
   terminalView.printMessage("Whomst thy wish to kill?");
   name = terminalView.getInput();
   crmdao.deleteWarriorByName(name);
 }
+
 void CRMController::updateWarrior() {
   //TODO
 }
+
 void CRMController::listTopWarriors() {
   int displayedWarriorCount = 0;
   displayedWarriorCount = terminalView.getNumberInput("How many would you like to see?");

@@ -63,49 +63,28 @@ std::vector<Warrior> CRMDAO::getWarriors() {
   return warriors;
 }
 
-void CRMDAO::printWarriors(PrintWarriors printWarriors) {
-  std::vector<std::string> warriorData = readWarriors();
-  std::vector<std::map<std::string,std::string>> printableWarriors;
-  for(std::string line : warriorData) {
-    std::map<std::string, std::string> warriorObj = createWarriorObject(line);
-    printableWarriors.push_back(warriorObj);
-  }
-  printWarriors(printableWarriors, "Warriors");
-}
 void CRMDAO::listTopWarriors(PrintWarriors printWarriors, int count) {
   std::vector<std::string> warriorData = readWarriors();
   std::vector<std::map<std::string,std::string>> warriors;
-  for(std::string line : warriorData) {
+  for(const std::string& line : warriorData) {
     std::map<std::string, std::string> warriorObj = createWarriorObject(line);
     warriors.push_back(warriorObj);
   }
   orderByWinRatio(warriors);
   printWarriors(std::vector<std::map<std::string, std::string>>(warriors.begin(), warriors.size() >= count ? warriors.begin() + count : warriors.end()), "Best Warriors");
 }
+
 void CRMDAO::orderByWinRatio(std::vector<std::map<std::string, std::string>>& warriors) {
   std::sort(warriors.begin(), warriors.end(),
             [this](const auto& warrior1, const auto& warrior2) {
               return this->compareWinRatio(warrior1, warrior2);
             });
 }
+
 bool CRMDAO::compareWinRatio(const std::map<std::string, std::string> &warrior1,
                              const std::map<std::string, std::string> &warrior2) {
   return (std::stoi(warrior1.at("BattlesWon")) / ((std::stoi(warrior1.at("BattlesLost"))) + std::stoi(warrior1.at("BattlesWon")))) >
       (std::stoi(warrior2.at("BattlesWon")) / ((std::stoi(warrior2.at("BattlesLost"))) + std::stoi(warrior2.at("BattlesWon"))));
-}
-void CRMDAO::deleteWarriorByName(std::string warriorName) {
-    std::vector<Warrior> warriors = getWarriors();
-    for(int i = 0; i <warriors.size(); i ++){
-        Warrior warrior = warriors.at(i);
-        if(warrior.name == warriorName){
-            warriors.erase(warriors.begin() + i);
-            updateCSVFile(warriors);
-        }
-      }
-    }
-  }
-
-  return warrior;
 }
 
 std::vector<std::string> CRMDAO::splitLines(const std::string& line) const {
@@ -203,6 +182,7 @@ void CRMDAO::decreaseWarriorHp(const Warrior& warrior) {
   std::vector<Warrior> warriors = getWarriors();
   int index = findWarriorIndexByName(warriors, warrior.name);
 
+
   if(warrior.currentHP < 0){
     warriors.at(index).currentHP = 0;
   } else {
@@ -215,10 +195,13 @@ void CRMDAO::decreaseWarriorHp(const Warrior& warrior) {
 void CRMDAO::makeWarriorHpMax(const Warrior &warrior) {
   std::vector<Warrior> warriors = getWarriors();
   int index = findWarriorIndexByName(warriors, warrior.name);
-  warriors.at(index).currentHP = warrior.maxHp;
+
   int healedAmount = warriors.at(index).maxHp - warrior.currentHP;
-  updateMedRecord(warrior, healedAmount);
+  warriors.at(index).currentHP = warrior.maxHp;
+
   updateCSVFile(warriors);
+  updateMedRecord(warrior, healedAmount);
+
 }
 
 void CRMDAO::increaseWarriorXp(const Warrior &warrior) {
@@ -244,7 +227,6 @@ void CRMDAO::increaseWarriorLevelWithIndex(std::vector<Warrior> warriors, int in
 }
 
 int CRMDAO::findWarriorIndexByName(std::vector<Warrior> warriors, const std::string& name) {
-
   for(int i = 0; i <warriors.size(); i ++){
     Warrior currentWarrior = warriors.at(i);
     if(currentWarrior.name == name){
@@ -307,4 +289,31 @@ void CRMDAO::printMedicalHistory(PrintWarriors printWarriors) {
     history.push_back(record);
   }
   printWarriors(history, "Medical records");
+}
+std::map<std::string, std::string> CRMDAO::createWarriorObject(const string &line) const {
+  std::vector<std::string> splitLine;
+  std::map<std::string, std::string> warrior;
+  std::string currentValue;
+
+  for(int i = 0; i < line.size(); i++) {
+    if(line.at(i) == valueSeparator) {
+      splitLine.push_back(currentValue);
+      currentValue = "";
+    }
+    else {
+      currentValue += line.at(i);
+    }
+  }
+  for(std::string keyValuePair : splitLine) {
+    for(int i = 0; i < keyValuePair.size(); i++) {
+      if(keyValuePair.at(i) == mapSeparator) {
+        std::string key;
+        std::string value;
+        key = keyValuePair.substr(0, i);
+        value = keyValuePair.substr(i + 1, keyValuePair.size());
+        warrior.insert({key, value});
+      }
+    }
+  }
+  return warrior;
 }
