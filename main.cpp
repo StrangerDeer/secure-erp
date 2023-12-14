@@ -10,8 +10,8 @@ int main() {
 
   CRMController crmController = CRMController(terminalView, crmdao, util);
   BattleController battleController(terminalView, battle::BattleDAO(), util);
-
-    MainController mainController = MainController(crmController, battleController, terminalView);
+  MedicalController medicalController(terminalView, battle::BattleDAO(), crmdao);
+  MainController mainController = MainController(medicalController, crmController, battleController, terminalView);
   mainController.menu();
 
   return 0;
