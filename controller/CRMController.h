@@ -31,6 +31,7 @@ class CRMController {
   void deleteWarrior();
   void updateWarrior();
   void listTopWarriors();
+
  private:
   TerminalView terminalView;
   crm::CRMDAO crmdao;

@@ -29,7 +29,7 @@ void CRMController::displayMenu() {
 std::string CRMController::createWarrior(std::string &name, std::string &postPigeon, int hp, int dmg) {
   std::string id = util.generateId();
   Warrior warrior = Warrior(id, name, postPigeon, hp, dmg);
-  crmdao.createWarrior(warrior);
+  crmdao.registerWarrior(warrior);
   return "cool";
 }
 
@@ -55,9 +55,7 @@ void CRMController::addWarrior() {
   dmg = terminalView.getNumberInput("Enter dmg");
   createWarrior(name, postPigeon, hp, dmg);
 }
-void CRMController::updateWarriorsWin(std::string& warriorName) {
-    crmdao.updateWarriorWin(warriorName);
-}
+
 
 void CRMController::updateWarriorLose(string &warriorName) {
     crmdao.updateWarriorLose(warriorName);

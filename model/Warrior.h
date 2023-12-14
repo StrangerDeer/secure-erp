@@ -6,15 +6,17 @@
 #define SECURE_ERP_CPP_MODEL_WARRIOR_H_
 
 #include <string>
+#include <utility>
 #include "../util/Util.h"
 class Warrior {
  public:
   //Create new Warrior
   Warrior(std::string id, std::string& name, std::string& postPigeon, int hp, int damage) :
-      id(id), name(name), postPigeon(postPigeon), maxHp(hp), currentHP(hp), dmg(damage), battlesLost(0), battlesWon(1), exp(0), level(1){}
-    //Save Warrior
+      id(std::move(id)), name(name), postPigeon(postPigeon), maxHp(hp), currentHP(hp), dmg(damage), battlesLost(0), battlesWon(0), exp(0), level(1){};
+
+  //Save Warrior
   Warrior(std::string id, std::string& name, std::string& postPigeon, int hp, int currentHp, int dmg, int win, int lose, int xp, int level) :
-      id(id), name(name), postPigeon(postPigeon), maxHp(hp), currentHP(currentHp),dmg(dmg), battlesLost(lose), battlesWon(win), exp(xp), level(level) {}
+      id(std::move(id)), name(name), postPigeon(postPigeon), maxHp(hp), currentHP(currentHp),dmg(dmg), battlesLost(lose), battlesWon(win), exp(xp), level(level) {};
 
   std::string id;
   std::string name;
@@ -30,7 +32,8 @@ class Warrior {
   std::string toString() {
     return "Id: " + id + " name: " + name + " postPigeon: " + postPigeon + " battles: " + to_string(battlesLost) + "/" + to_string(battlesWon);
   }
-  void fight(Warrior& enemy){
+
+  void fight(Warrior& enemy) const {
       enemy.currentHP = enemy.currentHP - dmg;
   }
 };
