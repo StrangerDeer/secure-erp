@@ -7,7 +7,15 @@
 #include <algorithm>
 using namespace crm;
 bool CRMDAO::createWarrior(Warrior warrior) {
-  vector<string> warriorProps = {warrior.id, warrior.name, warrior.postPigeon, to_string(warrior.maxHp), to_string(warrior.dmg), to_string(warrior.battlesWon), to_string(warrior.battlesLost)};
+  vector<string> warriorProps = {warrior.id,
+                                 warrior.name,
+                                 warrior.postPigeon,
+                                 to_string(warrior.maxHp),
+                                 to_string(warrior.currentHP),
+                                 to_string(warrior.dmg),
+                                 to_string(warrior.battlesWon),
+                                 to_string(warrior.battlesLost)};
+
   std::ofstream crmDB(DATA_FILE.data(), ios::app);
   if(crmDB.is_open()) {
     for(int i = 0; i < headers.size(); i++){
@@ -37,6 +45,7 @@ std::vector<Warrior> CRMDAO::getWarriors() {
                               warriorObj.at("Name"),
                               warriorObj.at("PostPigeon"),
                               stoi(warriorObj.at("MaxHp")),
+                              stoi(warriorObj.at("CurrentHp")),
                               stoi(warriorObj.at("DMG")),
                               stoi(warriorObj.at("BattlesWon")),
                               stoi(warriorObj.at("BattlesLost")));
@@ -135,4 +144,40 @@ void CRMDAO::updateWarriorLose(std::string warriorName) {
             break;
         }
     }
+}
+void CRMDAO::decreaseWarriorHp(const Warrior& warrior) {
+  std::vector<Warrior> warriors = getWarriors();
+
+  for(int i = 0; i <warriors.size(); i ++){
+    Warrior currentWarrior = warriors.at(i);
+
+    if(currentWarrior.name == warrior.name){
+
+      if(warrior.currentHP < 0){
+        warriors.at(i).currentHP = 0;
+      } else {
+        warriors.at(i).currentHP = warrior.currentHP;
+      }
+
+      updateCSVFile(warriors);
+
+      break;
+    }
+
+  }
+}
+void CRMDAO::makeWarriorHpMax(const Warrior &warrior) {
+  std::vector<Warrior> warriors = getWarriors();
+
+  for(int i = 0; i <warriors.size(); i ++){
+    Warrior currentWarrior = warriors.at(i);
+
+    if(currentWarrior.name == warrior.name){
+      warriors.at(i).currentHP = warrior.maxHp;
+
+      updateCSVFile(warriors);
+      break;
+    }
+
+  }
 }

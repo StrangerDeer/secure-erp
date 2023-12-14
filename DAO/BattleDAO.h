@@ -22,10 +22,12 @@ namespace battle {
     static vector<string_view> headers = {"Id", "Name", "PostPigeon", "BattlesWon", "BattlesLost"};
 
 class BattleDAO : private crm::CRMDAO{
-    public:
+  public:
         void battle(std::string warrior1name, std::string warrior2name);
-private:
-    Warrior findWarriorByName(std::string name);
+        void cure(std::string name);
+
+  private:
+    Warrior findWarriorByName(const std::string& name);
     void writeBattleEnd(std::string name1, std::string name2, std::string round);
     };
 };
