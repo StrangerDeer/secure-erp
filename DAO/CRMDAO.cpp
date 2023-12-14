@@ -4,7 +4,6 @@
 
 #include "CRMDAO.h"
 #include <fstream>
-#include <algorithm>
 using namespace crm;
 
 void CRMDAO::printWarriors(PrintWarriors printWarriors) {
@@ -62,19 +61,29 @@ std::vector<Warrior> CRMDAO::getWarriors() {
 
 std::map<std::string, std::string> CRMDAO::createWarriorObject(const std::string& line) const {
   std::vector<std::string> splitLine = splitLines(line);
-  std::map<std::string, std::string> warrior;
+  std::map<std::string, std::string> warrior = {
+      {headers.at(ID_HEADER_INDEX), ""},
+      {headers.at(NAME_HEADER_INDEX), ""},
+      {headers.at(PIGEON_HEADER_INDEX), ""},
+      {headers.at(MAX_HP_HEADER_INDEX), ""},
+      {headers.at(CURRENT_HP_HEADER_INDEX), ""},
+      {headers.at(DMG_HEADER_INDEX), ""},
+      {headers.at(BATTLES_WON_HEADER_INDEX), ""},
+      {headers.at(BATTLES_LOST_HEADER_INDEX), ""},
+      {headers.at(EXP_HEADER_INDEX), ""},
+      {headers.at(LEVEL_HEADER_INDEX), ""},
+  };
 
-  for(std::string keyValuePair : splitLine) {
-    for(int i = 0; i < keyValuePair.size(); i++) {
-
-      if(keyValuePair.at(i) == mapSeparator) {
-        std::string key;
-        std::string value;
-        key = keyValuePair.substr(0, i);
-        value = keyValuePair.substr(i + 1, keyValuePair.size());
-        warrior.insert({key, value});
+  for (const std::string& keyValuePair : splitLine) {
+    size_t separatorPos = keyValuePair.find(mapSeparator);
+    if (separatorPos != std::string::npos) {
+      std::string key = keyValuePair.substr(0, separatorPos);
+      std::string value = keyValuePair.substr(separatorPos + 1);
+      for(const auto& element : warrior){
+        if(element.first == key){
+          warrior[element.first] = value;
+        }
       }
-
     }
   }
 
