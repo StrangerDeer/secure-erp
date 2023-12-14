@@ -62,6 +62,27 @@ void CRMDAO::printWarriors(PrintWarriors printWarriors) {
   }
   printWarriors(printableWarriors, "Warriors");
 }
+void CRMDAO::listTopWarriors(PrintWarriors printWarriors, int count) {
+  std::vector<std::string> warriorData = readWarriors();
+  std::vector<std::map<std::string,std::string>> warriors;
+  for(std::string line : warriorData) {
+    std::map<std::string, std::string> warriorObj = createWarriorObject(line);
+    warriors.push_back(warriorObj);
+  }
+  orderByWinRatio(warriors);
+  printWarriors(std::vector<std::map<std::string, std::string>>(warriors.begin(), warriors.size() >= count ? warriors.begin() + count : warriors.end()), "Best Warriors");
+}
+void CRMDAO::orderByWinRatio(std::vector<std::map<std::string, std::string>>& warriors) {
+  std::sort(warriors.begin(), warriors.end(),
+            [this](const auto& warrior1, const auto& warrior2) {
+              return this->compareWinRatio(warrior1, warrior2);
+            });
+}
+bool CRMDAO::compareWinRatio(const std::map<std::string, std::string> &warrior1,
+                             const std::map<std::string, std::string> &warrior2) {
+  return (std::stoi(warrior1.at("BattlesWon")) + std::stoi(warrior1.at("BattlesLost"))) / std::stoi(warrior1.at("BattlesWon")) >
+      (std::stoi(warrior2.at("BattlesWon")) + std::stoi(warrior2.at("BattlesLost"))) / std::stoi(warrior2.at("BattlesWon"));
+}
 void CRMDAO::deleteWarriorByName(std::string warriorName) {
     std::vector<Warrior> warriors = getWarriors();
     for(int i = 0; i <warriors.size(); i ++){

@@ -25,11 +25,12 @@ class CRMDAO {
   void printWarriors(PrintWarriors printWarriors);
   void updateWarriorWin(std::string warriorName);
   void updateWarriorLose(std::string warriorName);
-
+  void listTopWarriors(PrintWarriors printWarriors, int count);
  protected:
   void decreaseWarriorHp(const Warrior& warrior);
   void makeWarriorHpMax(const Warrior& warrior);
-
+  void orderByWinRatio(std::vector<std::map<std::string, std::string>>& wariors);
+  bool compareWinRatio(const std::map<std::string, std::string>& warrior1, const std::map<std::string, std::string>& warrior2);
  private:
   std::vector<std::string> readWarriors();
   std::map<std::string, std::string> createWarriorObject(std::string line);

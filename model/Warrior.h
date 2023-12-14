@@ -11,7 +11,7 @@ class Warrior {
  public:
   //Create new Warrior
   Warrior(std::string id, std::string& name, std::string& postPigeon, int hp, int damage) :
-    name(name), postPigeon(postPigeon), maxHp(hp), currentHP(hp), dmg(damage), battlesLost(0), battlesWon(0), id(id) {}
+    name(name), postPigeon(postPigeon), maxHp(hp), currentHP(hp), dmg(damage), battlesLost(0), battlesWon(1), id(id) {}
 
     //Save Warrior
   Warrior(std::string id, std::string& name, std::string& postPigeon, int hp, int currentHp, int dmg, int win, int lose) :
