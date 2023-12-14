@@ -16,6 +16,7 @@ public:
     };
     void displayMenu() const;
     void battle(std::string warrior1name, std::string warrior2name);
+    void cure(std::string name);
 private:
     const TerminalView terminalView;
     battle::BattleDAO battleDao;

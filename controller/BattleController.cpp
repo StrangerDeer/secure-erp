@@ -11,3 +11,6 @@ void BattleController::displayMenu() const {
 void BattleController::battle(std::string warrior1name, std::string warrior2name) {
     battleDao.battle(warrior1name, warrior2name);
 }
+void BattleController::cure(std::string name) {
+  battleDao.cure(name);
+}

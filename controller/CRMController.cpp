@@ -49,7 +49,7 @@ void CRMController::addWarrior() {
   name = terminalView.getInput();
   terminalView.printMessage("Enter a pigeon name");
   postPigeon = terminalView.getInput();
-  createWarrior(name, postPigeon);
+  //createWarrior(name, postPigeon);
 }
 void CRMController::updateWarriorsWin(std::string& warriorName) {
     crmdao.updateWarriorWin(warriorName);
