@@ -14,6 +14,8 @@ int main() {
   MainController mainController = MainController(crmController, battleController, terminalView);
   mainController.menu();
 
-
+  //crmController.getWarriors();
+  //battleController.battle("Ferenc","Jozsi");
+  //battleController.cure("Jozsi");
   return 0;
 }
