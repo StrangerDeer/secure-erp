@@ -32,3 +32,12 @@ void BattleController::battle(std::string warrior1name, std::string warrior2name
 void BattleController::cure(std::string name) {
   battleDao.cure(name);
 }
+void BattleController::setupBattle() {
+  std::string name1;
+  std::string name2;
+  terminalView.printMessage("Enter the name of the first warrior");
+  name1 = terminalView.getInput();
+  terminalView.printMessage("Enter the name of the second warrior");
+  name2 = terminalView.getInput();
+  battle(name1, name2);
+}
