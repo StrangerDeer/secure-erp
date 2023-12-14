@@ -5,6 +5,7 @@
 #include "CRMDAO.h"
 #include <fstream>
 #include <algorithm>
+#include <ctime>
 using namespace crm;
 bool CRMDAO::createWarrior(Warrior warrior) {
   vector<string> warriorProps = {warrior.id,
@@ -202,11 +203,21 @@ void CRMDAO::makeWarriorHpMax(const Warrior &warrior) {
     }
   }
 }
+std::string getInjuryName(int healedAmount) {
+  std::srand(static_cast<unsigned int>(std::time(nullptr)));
+  static std::vector<std::string> lightInjuryNames{"hurty hurty toenail", "ouchy finger"};
+  static std::vector<std::string> injuryNames{"cut","deep cut", "bruised arm"};
+  static std::vector<std::string> severeInjuryNames{ "broken rib", "severe head trauma",
+                                              "how is this guy even alive lmao"};
+  static std::vector<std::vector<std::string>> injuries {lightInjuryNames, injuryNames, severeInjuryNames};
+  int severityLevel = healedAmount <= 3 ? 0 : healedAmount <= 5 ? 1 : 2;
+  return injuries.at(severityLevel).at(std::rand() % injuries[severityLevel].size());
+}
 void CRMDAO::updateMedRecord(Warrior warrior, int healedAmount) {
-  if(healedAmount <= 0)return;
+  if(healedAmount < 0)return;
   std::ofstream crmDB("../resource/medcenter.csv", ios::app);
   if(crmDB.is_open()) {
-    crmDB<< warrior.name << ";" << to_string(healedAmount) << ";" << std::endl;
+    crmDB<< warrior.name << ";" << getInjuryName(healedAmount) << " healed for: " << to_string(healedAmount) << ";" << std::endl;
     crmDB.close();
   }
 }
