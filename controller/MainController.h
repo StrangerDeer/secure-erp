@@ -3,13 +3,14 @@
 #include <string_view>
 #include "CRMController.h"
 #include "../ui/TerminalView.h"
+#include "BattleController.h"
 
 using namespace std;
 
 static string_view MAIN_OPTIONS[]{
     "Exit program",
     "Warrior Management",
-    "Sales",
+    "Battle Management",
     "Human Resources",
     ""
 };
@@ -17,11 +18,12 @@ static string_view MAIN_OPTIONS[]{
 class MainController {
  private:
    CRMController crmController;
+   BattleController battleController;
    TerminalView terminalView;
  public:
-  MainController(const CRMController &crmController,
+  MainController(const CRMController &crmController, BattleController battleController,
                  const TerminalView &terminalView)
-      : crmController(crmController),
+      : crmController(crmController), battleController(battleController),
         terminalView(terminalView) {};
 
   void menu();
