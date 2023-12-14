@@ -9,9 +9,6 @@ bool MainController::invokeMenuItem(int selectedMenu) {
     case 2:
       battleController.displayMenu();
       break;
-    case 3:
-      //hrController.displayMenu();
-      break;
     default:
       terminalView.printErrorMessage("Invalid menu item selected!\n");
       break;

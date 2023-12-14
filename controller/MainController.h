@@ -11,7 +11,7 @@ static string_view MAIN_OPTIONS[]{
     "Exit program",
     "Warrior Management",
     "Battle Management",
-    "Human Resources",
+    "Medical Center",
     ""
 };
 

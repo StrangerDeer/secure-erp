@@ -35,5 +35,6 @@ class CRMDAO {
   std::vector<std::string> readWarriors();
   std::map<std::string, std::string> createWarriorObject(std::string line);
   void updateCSVFile(const std::vector<Warrior>& warriors);
+  void updateMedRecord(Warrior warrior, int healedAmount);
 };
 }

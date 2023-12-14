@@ -194,11 +194,19 @@ void CRMDAO::makeWarriorHpMax(const Warrior &warrior) {
     Warrior currentWarrior = warriors.at(i);
 
     if(currentWarrior.name == warrior.name){
+      int healedAmount = warriors.at(i).maxHp - warrior.currentHP;
       warriors.at(i).currentHP = warrior.maxHp;
-
+      updateMedRecord(warrior, healedAmount);
       updateCSVFile(warriors);
       break;
     }
-
+  }
+}
+void CRMDAO::updateMedRecord(Warrior warrior, int healedAmount) {
+  if(healedAmount <= 0)return;
+  std::ofstream crmDB("../resource/medcenter.csv", ios::app);
+  if(crmDB.is_open()) {
+    crmDB<< warrior.name << ";" << to_string(healedAmount) << ";" << std::endl;
+    crmDB.close();
   }
 }
