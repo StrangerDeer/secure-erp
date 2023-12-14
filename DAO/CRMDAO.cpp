@@ -80,8 +80,8 @@ void CRMDAO::orderByWinRatio(std::vector<std::map<std::string, std::string>>& wa
 }
 bool CRMDAO::compareWinRatio(const std::map<std::string, std::string> &warrior1,
                              const std::map<std::string, std::string> &warrior2) {
-  return (std::stoi(warrior1.at("BattlesWon")) + std::stoi(warrior1.at("BattlesLost"))) / std::stoi(warrior1.at("BattlesWon")) >
-      (std::stoi(warrior2.at("BattlesWon")) + std::stoi(warrior2.at("BattlesLost"))) / std::stoi(warrior2.at("BattlesWon"));
+  return (std::stoi(warrior1.at("BattlesWon")) / ((std::stoi(warrior1.at("BattlesLost"))) + std::stoi(warrior1.at("BattlesWon")))) >
+      (std::stoi(warrior2.at("BattlesWon")) / ((std::stoi(warrior2.at("BattlesLost"))) + std::stoi(warrior2.at("BattlesWon"))));
 }
 void CRMDAO::deleteWarriorByName(std::string warriorName) {
     std::vector<Warrior> warriors = getWarriors();
