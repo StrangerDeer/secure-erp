@@ -4,8 +4,10 @@
 
 #include "CRMDAO.h"
 #include <fstream>
+
 #include <algorithm>
 #include <ctime>
+
 using namespace crm;
 
 void CRMDAO::printWarriors(PrintWarriors printWarriors) {
@@ -180,6 +182,7 @@ void CRMDAO::decreaseWarriorHp(const Warrior& warrior) {
   std::vector<Warrior> warriors = getWarriors();
   int index = findWarriorIndexByName(warriors, warrior.name);
 
+
   if(warrior.currentHP < 0){
     warriors.at(index).currentHP = 0;
   } else {
@@ -192,12 +195,15 @@ void CRMDAO::decreaseWarriorHp(const Warrior& warrior) {
 void CRMDAO::makeWarriorHpMax(const Warrior &warrior) {
   std::vector<Warrior> warriors = getWarriors();
   int index = findWarriorIndexByName(warriors, warrior.name);
+
   int healedAmount = warriors.at(index).maxHp - warrior.currentHP;
   warriors.at(index).currentHP = warrior.maxHp;
 
   updateCSVFile(warriors);
   updateMedRecord(warrior, healedAmount);
+
 }
+
 void CRMDAO::increaseWarriorXp(const Warrior &warrior) {
   std::vector<Warrior> warriors = getWarriors();
   int index = findWarriorIndexByName(warriors, warrior.name);
@@ -231,9 +237,9 @@ int CRMDAO::findWarriorIndexByName(std::vector<Warrior> warriors, const std::str
 }
 std::string getInjuryName(int healedAmount) {
   std::srand(static_cast<unsigned int>(std::time(nullptr)));
-  static std::vector<std::string> lightInjuryNames{"hurty hurty toenail", "ouchy finger"};
-  static std::vector<std::string> injuryNames{"cut","deep cut", "bruised arm"};
-  static std::vector<std::string> severeInjuryNames{ "broken rib", "severe head trauma",
+  static std::vector<std::string> lightInjuryNames{"hurty hurty toenail", "ouchy finger", "paper cut", "itchy back"};
+  static std::vector<std::string> injuryNames{"cut","deep cut", "bruised arm", "broken finger", "concussion"};
+  static std::vector<std::string> severeInjuryNames{ "broken ribs", "severe head trauma",
                                               "how is this guy even alive lmao"};
   static std::vector<std::vector<std::string>> injuries {lightInjuryNames, injuryNames, severeInjuryNames};
   int severityLevel = healedAmount <= 3 ? 0 : healedAmount <= 5 ? 1 : 2;

@@ -22,6 +22,7 @@ constexpr string_view DATA_FILE{"../resource/crm.csv"};
 constexpr string_view MED_FILE{"../resource/medcenter.csv"};
 static vector<string> headers = {"Id", "Name", "PostPigeon", "MaxHp", "CurrentHp" ,"DMG", "BattlesWon", "BattlesLost", "Exp", "Level"};
 
+
 class CRMDAO {
  public:
   using PrintWarriors = std::function<void(std::vector<std::map<std::string, std::string>>, std::string)>;
@@ -29,6 +30,7 @@ class CRMDAO {
   std::vector<Warrior> getWarriors();
   void deleteWarriorByName(const std::string& warriorName);
   void printWarriors(PrintWarriors printWarriors);
+
   void listTopWarriors(PrintWarriors printWarriors, int count);
   void printMedicalHistory(PrintWarriors printWarriors);
 
