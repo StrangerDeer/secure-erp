@@ -246,9 +246,9 @@ void CRMDAO::increaseWarriorLevel(const Warrior &warrior) {
 }
 std::string getInjuryName(int healedAmount) {
   std::srand(static_cast<unsigned int>(std::time(nullptr)));
-  static std::vector<std::string> lightInjuryNames{"hurty hurty toenail", "ouchy finger"};
-  static std::vector<std::string> injuryNames{"cut","deep cut", "bruised arm"};
-  static std::vector<std::string> severeInjuryNames{ "broken rib", "severe head trauma",
+  static std::vector<std::string> lightInjuryNames{"hurty hurty toenail", "ouchy finger", "paper cut", "itchy back"};
+  static std::vector<std::string> injuryNames{"cut","deep cut", "bruised arm", "broken finger", "concussion"};
+  static std::vector<std::string> severeInjuryNames{ "broken ribs", "severe head trauma",
                                               "how is this guy even alive lmao"};
   static std::vector<std::vector<std::string>> injuries {lightInjuryNames, injuryNames, severeInjuryNames};
   int severityLevel = healedAmount <= 3 ? 0 : healedAmount <= 5 ? 1 : 2;
